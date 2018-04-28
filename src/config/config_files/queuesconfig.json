@@ -1,0 +1,14 @@
+{
+    "jobs_queue":{
+        "address":"127.0.0.1",
+        "port":8506,
+        "auth":"my secret password",
+        "queue_type":"priority"
+    },
+    "results_queue":{
+        "address":"127.0.0.1",
+        "port":8508,
+        "auth":"my secret password",
+        "queue_type":"dict"
+    }
+}
