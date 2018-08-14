@@ -1,10 +1,10 @@
 # from __future__ import absolute_import, print_function, division, unicode_literals
 import telepot
 import time
-HTTP_API_TOKEN = '412022325:AAFJQUJfX7Mf95VnLpz98noGuRuHB09mr9g'
-BOT_USERNAME = '2ga74fgm90t5'
-BOT_NAME = 'int_services_bot'
-ALLOWED_USERS_ID = (264698809,)
+HTTP_API_TOKEN = ''
+BOT_USERNAME = ''
+BOT_NAME = ''
+ALLOWED_USERS_ID = ()
 
 
 def on(_int):
