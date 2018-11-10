@@ -1,38 +1,38 @@
-from dsys.src.config.configuration import queues_configuration
-from dsys.src.utils.managers import QueueManager, SharedResultsManager, start_server
-from dsys.src.utils.queues import IndexableQueue, PersistentQueue, JournaledPersistentQueue, TasksPriorityQueue
-from Queue import Queue as SimpleQueue
-from dsys.src.logging.dsys_logger_client import get_logger
-import collections
+from src.config.configuration import queues_configuration
+from src.utils.managers import QueueManager, SharedResultsManager, start_server
+from src.utils.queues import queues_setup
+from src.logging.dsys_logger_client import get_logger
 import argparse
 
 log = get_logger(__name__)
 
-server_setup = collections.namedtuple('Setup', ['address', 'port', 'passkey'])
 
-queues_setup = {
-    'priority': TasksPriorityQueue,
-    'simple': SimpleQueue,
-    'indexable': IndexableQueue,
-    'persistant': PersistentQueue,
-    'journaled': JournaledPersistentQueue
-}
+class ServerSetup(object):
+    __slots__ = ('address', 'port', 'passkey')
+
+    def __init__(self, address, port, passkey):
+        self.address = address
+        self.port = port
+        self.passkey = passkey
+
+    def __repr__(self):
+        return "< ServerSetup address={} port={} passkey={}>".format(self.address, self.port, self.passkey)
 
 
 def start_jobserver(queues_conf, queue_type='priority'):
 
-    conf = server_setup(address=queues_conf['jobs_queue']['address'],
-                        port=queues_conf['jobs_queue']['port'],
-                        passkey=queues_conf['jobs_queue']['auth'])
+    conf = ServerSetup(address=queues_conf['jobs_queue']['address'],
+                       port=queues_conf['jobs_queue']['port'],
+                       passkey=queues_conf['jobs_queue']['auth'])
 
     return start_server(QueueManager(address=conf.address, port=conf.port,
                                      authkey=conf.passkey, queues={'tasks_queue': queues_setup[queue_type]()}))
 
 
 def start_results_server(queues_conf):
-    conf = server_setup(address=queues_conf['results_queue']['address'],
-                        port=queues_conf['results_queue']['port'],
-                        passkey=queues_conf['results_queue']['auth'])
+    conf = ServerSetup(address=queues_conf['results_queue']['address'],
+                       port=queues_conf['results_queue']['port'],
+                       passkey=queues_conf['results_queue']['auth'])
 
     return start_server(SharedResultsManager(address=conf.address, port=conf.port, authkey=conf.passkey))
 

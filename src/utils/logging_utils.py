@@ -1,6 +1,6 @@
 import os
 from logging import getLogger
-from dsys.src.config import loggingconfig as settings
+from src.config.configuration import logging_configuration as settings
 from logging.handlers import RotatingFileHandler
 import multiprocessing, threading, logging, sys, traceback
 

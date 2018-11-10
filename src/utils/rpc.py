@@ -4,7 +4,7 @@ from multiprocessing.connection import Listener, Client
 from Queue import Empty, Full
 from threading import Thread, active_count
 
-from dsys.src.utils.queues import PersistentQueue
+from src.utils.queues import PersistentQueue
 
 
 class ShutDown(Exception):

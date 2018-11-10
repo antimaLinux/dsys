@@ -1,7 +1,7 @@
 import json
 import os
 
-ROOT = '/Users/deus/Documents/workspace/dsys-master/dsys/src/'
+ROOT = '/Users/deus/Documents/workspace/dsys/src'
 CONFIGFILES = os.path.join(ROOT, 'config', 'config_files')
 
 

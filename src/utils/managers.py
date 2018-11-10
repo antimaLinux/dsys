@@ -3,7 +3,7 @@ import time
 from multiprocessing import Manager, Process
 from multiprocessing.managers import BaseManager, DictProxy
 from random import seed, randint
-from dsys.src.logging.dsys_logger_client import get_logger
+from src.logging.dsys_logger_client import get_logger
 
 log = get_logger(__name__)
 
@@ -12,8 +12,8 @@ class QueueManager(BaseManager):
     """
     Job/queue server Manager
     """
-    def __init__(self, *args, **kwargs):
 
+    def __init__(self, *args, **kwargs):
         self.queues_registered = []
 
         for q_name, queue in kwargs.pop('queues', {}).items():
@@ -25,8 +25,8 @@ class QueueManager(BaseManager):
         QueueManager.register('close_server', callable=self.shutdown_server)
 
         super(QueueManager, self).__init__(address=(kwargs.pop('address', 'localhost'),
-                                                     kwargs.pop('port', 9999)),
-                                            authkey=kwargs.pop('authkey', 'mykey'))
+                                                    kwargs.pop('port', 9999)),
+                                           authkey=kwargs.pop('authkey', 'mykey'))
 
         # self.process()
 
@@ -48,13 +48,15 @@ class QueueManager(BaseManager):
         self.start()
 
     def __repr__(self):
-        return "< Queue manager server > -- serving at {} -- Queues registered: {}".format(self.address, self.queues_registered)
+        return "< Queue manager server > -- serving at {} -- Queues registered: {}".format(self.address,
+                                                                                           self.queues_registered)
 
 
 class ClientManager(BaseManager):
     """
     Client manager
     """
+
     def __init__(self, *args, **kwargs):
 
         if len(kwargs) == 0 and len(args) != 0:
@@ -90,8 +92,8 @@ class SharedResultsManager(BaseManager):
     """
     Job/queue server Manager
     """
-    def __init__(self, *args, **kwargs):
 
+    def __init__(self, *args, **kwargs):
         self.queues_registered = []
         queue = Manager().dict()
 
@@ -118,7 +120,6 @@ class SharedResultsManager(BaseManager):
 
 
 def start_server(instance):
-
     def serve(_instance):
         server = _instance.get_server()
         server.serve_forever()
