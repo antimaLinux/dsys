@@ -15,7 +15,7 @@ except ImportError:
 
 
 VANTAGE_API = """
-Welcome to Alpha Vantage! Your dedicated access key is: ZAKJIJD5JMHQ1MW1. 
+Welcome to Alpha Vantage! Your dedicated access key is: ********. 
 Please record this API key for lifetime access to Alpha Vantage
 """
 
